@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosAirplane, IoIosBed, IoIosSettings } from "react-icons/io";
 import { FaCarSide, FaTaxi } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { format } from "date-fns";
 
 const NavMenu = () => {
+    const [pickDate, setPickDate] = useState([
+        {
+            startDate: new Date(),
+            endDate: new Date(),
+            key: "selection",
+        },
+    ]);
+    const [openDate, setOpenDate] = useState(false);
+    const [openRoom, setOpenRoom] = useState(false);
+    const [rentRoom, setRentRoom] = useState({
+        adult: 1,
+        child: 0,
+        room: 1,
+    });
+
+    const handleRoomRent = (name, option) => {
+        setRentRoom((opt) => {
+            return {
+                ...opt,
+                [name]:
+                    option === "i" ? rentRoom[name] + 1 : rentRoom[name] - 1,
+            };
+        });
+    };
+
     return (
         <div className="bg-primary">
             <div className="max-w-6xl mx-auto py-5 relative">
@@ -92,25 +121,121 @@ const NavMenu = () => {
                             className="outline-none w-full text-black placeholder-black font-medium"
                         />
                     </div>
-                    <div className="flex items-center px-3 gap-3 w-full bg-white">
+                    <div className="flex items-center px-3 gap-3 w-full bg-white relative">
                         <AiOutlineCalendar className="text-2xl" />
                         <input
+                            onClick={() => setOpenDate(!openDate)}
                             type="text"
                             name=""
                             id=""
-                            placeholder="Check-in Date - Check-out Date"
-                            className="outline-none w-full text-black placeholder-black font-medium"
+                            placeholder={`${format(
+                                pickDate[0].startDate,
+                                "dd/MM/yyyy"
+                            )} to ${format(pickDate[0].endDate, "dd/MM/yyyy")}`}
+                            className="outline-none w-full text-black placeholder-black font-medium cursor-pointer"
                         />
+                        {openDate && (
+                            <div className=" absolute top-12">
+                                <DateRange
+                                    editableDateInputs={true}
+                                    onChange={(item) =>
+                                        setPickDate([item.selection])
+                                    }
+                                    moveRangeOnFirstSelection={false}
+                                    ranges={pickDate}
+                                />
+                            </div>
+                        )}
                     </div>
-                    <div className="flex items-center px-3 gap-3 w-full bg-white">
+                    <div className="flex items-center px-3 gap-3 w-full bg-white relative">
                         <BsPerson className="text-2xl" />
                         <input
+                            onClick={() => setOpenRoom(!openRoom)}
                             type="text"
                             name=""
                             id=""
-                            placeholder="1 adult - 0 child - 1 room"
-                            className="outline-none w-full text-black placeholder-black font-medium"
+                            placeholder={`${rentRoom.adult} adult - ${rentRoom.child} child - ${rentRoom.room} room`}
+                            className="outline-none w-full text-black placeholder-black font-medium cursor-pointer"
                         />
+                        {openRoom && (
+                            <div className="absolute top-12 w-full shadow-lg p-5 rounded-md">
+                                <div className="flex justify-between items-center mb-3">
+                                    <p>Adult:</p>
+                                    <div className="flex justify-between gap-6">
+                                        <button
+                                            disabled={rentRoom.adult <= 1}
+                                            onClick={() =>
+                                                handleRoomRent("adult", "d")
+                                            }
+                                            className="bg-gray-300 px-3 py-1 text-secondary disabled:cursor-not-allowed disabled:text-gray-500"
+                                        >
+                                            -
+                                        </button>
+                                        <button className="bg-gray-300 px-3 py-1">
+                                            {rentRoom.adult}
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleRoomRent("adult", "i")
+                                            }
+                                            className="bg-gray-300 px-3 py-1"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center mb-3">
+                                    <p>Child:</p>
+                                    <div className="flex justify-between gap-6">
+                                        <button
+                                            disabled={rentRoom.child <= 0}
+                                            onClick={() =>
+                                                handleRoomRent("child", "d")
+                                            }
+                                            className="bg-gray-300 px-3 py-1 disabled:cursor-not-allowed disabled:text-gray-500"
+                                        >
+                                            -
+                                        </button>
+                                        <button className="bg-gray-300 px-3 py-1">
+                                            {rentRoom.child}
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleRoomRent("child", "i")
+                                            }
+                                            className="bg-gray-300 px-3 py-1"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <p>Room:</p>
+                                    <div className="flex justify-between gap-6">
+                                        <button
+                                            disabled={rentRoom.room <= 1}
+                                            onClick={() =>
+                                                handleRoomRent("room", "d")
+                                            }
+                                            className="bg-gray-300 px-3 py-1 disabled:cursor-not-allowed disabled:text-gray-500"
+                                        >
+                                            -
+                                        </button>
+                                        <button className="bg-gray-300 px-3 py-1">
+                                            {rentRoom.room}
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleRoomRent("room", "i")
+                                            }
+                                            className="bg-gray-300 px-3 py-1"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <button className="bg-blue-600 px-5 py-3">Search</button>
                 </div>
