@@ -13,6 +13,18 @@ const HotelList = () => {
     const [rentRoom, setRentRoom] = useState(location.state.rentRoom);
 
     const [openDate, setOpenDate] = useState(false);
+    const [openRoom, setOpenRoom] = useState(false);
+    console.log(distination);
+
+    const handleRoomRent = (name, option) => {
+        setRentRoom((opt) => {
+            return {
+                ...opt,
+                [name]:
+                    option === "i" ? rentRoom[name] + 1 : rentRoom[name] - 1,
+            };
+        });
+    };
     return (
         <div className="container lg:max-w-6xl mx-auto py-5">
             <div className="flex gap-5">
@@ -25,6 +37,7 @@ const HotelList = () => {
                         <div className="flex items-center gap-3 bg-white px-3 py-2 rounded-md">
                             <BsSearch />
                             <input
+                                onBlur={(e) => setDistination(e.target.value)}
                                 type="text"
                                 name="destination"
                                 id="destination"
@@ -68,15 +81,93 @@ const HotelList = () => {
                     </div>
                     <div className="mb-2 relative">
                         <label htmlFor="room">Room</label>
-                        <div className="flex items-center justify-between bg-white px-3 py-2 rounded-md">
-                            <input
-                                type="text"
-                                name="room"
-                                id="room"
-                                className="cursor-pointer outline-none placeholder-black"
-                                placeholder={`${rentRoom.adult} adult - ${rentRoom.child} child - ${rentRoom.room} room`}
-                            />
+                        <div className="flex items-center justify-between bg-white px-3 py-2 rounded-md relative">
+                            <span
+                                onClick={() => setOpenRoom(!openRoom)}
+                                className="cursor-pointer outline-none placeholder-black select-none"
+                            >
+                                {`${rentRoom.adult} adult - ${rentRoom.child} child - ${rentRoom.room} room`}
+                            </span>
                             <FaAngleDown />
+                            {openRoom && (
+                                <div className="absolute top-12 w-full shadow-lg p-5 rounded-md z-10 bg-white">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <p>Adult:</p>
+                                        <div className="flex justify-between gap-6">
+                                            <button
+                                                disabled={rentRoom.adult <= 1}
+                                                onClick={() =>
+                                                    handleRoomRent("adult", "d")
+                                                }
+                                                className="bg-gray-300 px-3 py-1 text-secondary disabled:cursor-not-allowed disabled:text-gray-500"
+                                            >
+                                                -
+                                            </button>
+                                            <button className="bg-gray-300 px-3 py-1">
+                                                {rentRoom.adult}
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleRoomRent("adult", "i")
+                                                }
+                                                className="bg-gray-300 px-3 py-1"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-center mb-3">
+                                        <p>Child:</p>
+                                        <div className="flex justify-between gap-6">
+                                            <button
+                                                disabled={rentRoom.child <= 0}
+                                                onClick={() =>
+                                                    handleRoomRent("child", "d")
+                                                }
+                                                className="bg-gray-300 px-3 py-1 disabled:cursor-not-allowed disabled:text-gray-500"
+                                            >
+                                                -
+                                            </button>
+                                            <button className="bg-gray-300 px-3 py-1">
+                                                {rentRoom.child}
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleRoomRent("child", "i")
+                                                }
+                                                className="bg-gray-300 px-3 py-1"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <p>Room:</p>
+                                        <div className="flex justify-between gap-6">
+                                            <button
+                                                disabled={rentRoom.room <= 1}
+                                                onClick={() =>
+                                                    handleRoomRent("room", "d")
+                                                }
+                                                className="bg-gray-300 px-3 py-1 disabled:cursor-not-allowed disabled:text-gray-500"
+                                            >
+                                                -
+                                            </button>
+                                            <button className="bg-gray-300 px-3 py-1">
+                                                {rentRoom.room}
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleRoomRent("room", "i")
+                                                }
+                                                className="bg-gray-300 px-3 py-1"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <input
