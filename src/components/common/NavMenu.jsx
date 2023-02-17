@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosAirplane, IoIosBed, IoIosSettings } from "react-icons/io";
 import { FaCarSide, FaTaxi } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -10,7 +10,9 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 
 const NavMenu = () => {
+    const navigate = useNavigate();
     const { pathname } = useLocation();
+    const [distination, setDistination] = useState("");
     const [pickDate, setPickDate] = useState([
         {
             startDate: new Date(),
@@ -26,6 +28,9 @@ const NavMenu = () => {
         room: 1,
     });
 
+    const handleSearch = () => {
+        navigate("/hotels", { state: { distination, pickDate, rentRoom } });
+    };
     const handleRoomRent = (name, option) => {
         setRentRoom((opt) => {
             return {
@@ -117,6 +122,9 @@ const NavMenu = () => {
                             <div className="flex items-center px-3 gap-3 w-full bg-white">
                                 <IoIosBed className="text-2xl" />
                                 <input
+                                    onBlur={(e) =>
+                                        setDistination(e.target.value)
+                                    }
                                     type="text"
                                     name=""
                                     id=""
@@ -141,7 +149,7 @@ const NavMenu = () => {
                                     className="outline-none w-full text-black placeholder-black font-medium cursor-pointer"
                                 />
                                 {openDate && (
-                                    <div className=" absolute top-12">
+                                    <div className=" absolute top-12 z-10">
                                         <DateRange
                                             editableDateInputs={true}
                                             onChange={(item) =>
@@ -164,7 +172,7 @@ const NavMenu = () => {
                                     className="outline-none w-full text-black placeholder-black font-medium cursor-pointer"
                                 />
                                 {openRoom && (
-                                    <div className="absolute top-12 w-full shadow-lg p-5 rounded-md">
+                                    <div className="absolute top-12 w-full shadow-lg p-5 rounded-md z-10 bg-white">
                                         <div className="flex justify-between items-center mb-3">
                                             <p>Adult:</p>
                                             <div className="flex justify-between gap-6">
@@ -267,7 +275,10 @@ const NavMenu = () => {
                                     </div>
                                 )}
                             </div>
-                            <button className="bg-blue-600 px-5 py-3">
+                            <button
+                                className="bg-blue-600 px-5 py-3"
+                                onClick={handleSearch}
+                            >
                                 Search
                             </button>
                         </div>
