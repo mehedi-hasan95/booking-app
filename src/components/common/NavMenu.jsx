@@ -277,7 +277,7 @@ const NavMenu = () => {
                                 )}
                             </div>
                             <button
-                                className="bg-blue-600 px-5 py-3"
+                                className="bg-secondary hover:bg-primary text-white transition duration-300 text-xl px-5 py-3"
                                 onClick={handleSearch}
                             >
                                 Search

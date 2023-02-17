@@ -8,7 +8,7 @@ const Email = () => {
                 <p className="text-gray-300">
                     Sign up and we'll send the best deals to you
                 </p>
-                <div className="flex max-w-lg mx-auto gap-1 pt-4">
+                <div className="flex w-full md:max-w-lg mx-auto gap-1 pt-4">
                     <input
                         type="email"
                         name=""

@@ -4,6 +4,7 @@ import { DateRange } from "react-date-range";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
+import { MdKeyboardArrowRight } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
 const HotelList = () => {
@@ -27,8 +28,8 @@ const HotelList = () => {
     };
     return (
         <div className="container lg:max-w-6xl mx-auto py-5">
-            <div className="flex gap-5">
-                <div className="flex-auto w-1/3 bg-yellowish px-4 py-6 rounded-lg">
+            <div className="flex flex-col lg:flex-row gap-5">
+                <div className="flex-auto w-full lg:w-1/3 bg-yellowish sticky top-0 max-content px-4 py-6 rounded-lg">
                     <h2 className="text-xl">Search</h2>
                     <div className="mb-2">
                         <label htmlFor="destination">
@@ -176,8 +177,172 @@ const HotelList = () => {
                         className=" bg-secondary hover:bg-primary transition duration-300 rounded-md block px-4 py-2 w-full cursor-pointer text-white font-medium text-xl "
                     />
                 </div>
-                <div className="flex-auto w-3/4">
-                    <h1 className="bg-purple-400">Bg</h1>
+                <div className="flex-auto w-full lg:w-3/4">
+                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                        <img
+                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                            alt=""
+                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                        />
+                        <div className="w-full flex-auto md:w-2/4">
+                            <h2 className="text-secondary font-bold text-xl">
+                                Sea Pearl Beach Resort & Spa Cox's Bazar
+                            </h2>
+                            <p>Cox Bazar</p>
+                            <p>1 King Bed</p>
+                            <p>Breakfast included</p>
+                        </div>
+                        <div className="w-full flex-auto md:w-1/4 relative">
+                            <div className="flex items-center gap-1 justify-start md:justify-end">
+                                <h4 className="font-semibold">Review Score</h4>
+                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
+                                    6.2
+                                </span>
+                            </div>
+                            <div className="flex flex-col text-left md:text-right absolute bottom-0">
+                                <p>1 night, 2 adults</p>
+                                <h4 className="text-lg font-semibold">
+                                    BDT 14,152
+                                </h4>
+                                <button className="flex items-center bg-secondary hover:bg-primary transition duration-300 text-white text-lg font-semibold justify-between py-1 px-4 rounded-md mt-3">
+                                    <span>See Abvibility</span>{" "}
+                                    <MdKeyboardArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                        <img
+                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                            alt=""
+                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                        />
+                        <div className="w-full flex-auto md:w-2/4">
+                            <h2 className="text-secondary font-bold text-xl">
+                                Sea Pearl Beach Resort & Spa Cox's Bazar
+                            </h2>
+                            <p>Cox Bazar</p>
+                            <p>1 King Bed</p>
+                            <p>Breakfast included</p>
+                        </div>
+                        <div className="w-full flex-auto md:w-1/4 relative">
+                            <div className="flex items-center gap-1 justify-start md:justify-end">
+                                <h4 className="font-semibold">Review Score</h4>
+                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
+                                    6.2
+                                </span>
+                            </div>
+                            <div className="flex flex-col text-left md:text-right absolute bottom-0">
+                                <p>1 night, 2 adults</p>
+                                <h4 className="text-lg font-semibold">
+                                    BDT 14,152
+                                </h4>
+                                <button className="flex items-center bg-secondary hover:bg-primary transition duration-300 text-white text-lg font-semibold justify-between py-1 px-4 rounded-md mt-3">
+                                    <span>See Abvibility</span>{" "}
+                                    <MdKeyboardArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                        <img
+                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                            alt=""
+                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                        />
+                        <div className="w-full flex-auto md:w-2/4">
+                            <h2 className="text-secondary font-bold text-xl">
+                                Sea Pearl Beach Resort & Spa Cox's Bazar
+                            </h2>
+                            <p>Cox Bazar</p>
+                            <p>1 King Bed</p>
+                            <p>Breakfast included</p>
+                        </div>
+                        <div className="w-full flex-auto md:w-1/4 relative">
+                            <div className="flex items-center gap-1 justify-start md:justify-end">
+                                <h4 className="font-semibold">Review Score</h4>
+                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
+                                    6.2
+                                </span>
+                            </div>
+                            <div className="flex flex-col text-left md:text-right absolute bottom-0">
+                                <p>1 night, 2 adults</p>
+                                <h4 className="text-lg font-semibold">
+                                    BDT 14,152
+                                </h4>
+                                <button className="flex items-center bg-secondary hover:bg-primary transition duration-300 text-white text-lg font-semibold justify-between py-1 px-4 rounded-md mt-3">
+                                    <span>See Abvibility</span>{" "}
+                                    <MdKeyboardArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                        <img
+                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                            alt=""
+                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                        />
+                        <div className="w-full flex-auto md:w-2/4">
+                            <h2 className="text-secondary font-bold text-xl">
+                                Sea Pearl Beach Resort & Spa Cox's Bazar
+                            </h2>
+                            <p>Cox Bazar</p>
+                            <p>1 King Bed</p>
+                            <p>Breakfast included</p>
+                        </div>
+                        <div className="w-full flex-auto md:w-1/4 relative">
+                            <div className="flex items-center gap-1 justify-start md:justify-end">
+                                <h4 className="font-semibold">Review Score</h4>
+                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
+                                    6.2
+                                </span>
+                            </div>
+                            <div className="flex flex-col text-left md:text-right absolute bottom-0">
+                                <p>1 night, 2 adults</p>
+                                <h4 className="text-lg font-semibold">
+                                    BDT 14,152
+                                </h4>
+                                <button className="flex items-center bg-secondary hover:bg-primary transition duration-300 text-white text-lg font-semibold justify-between py-1 px-4 rounded-md mt-3">
+                                    <span>See Abvibility</span>{" "}
+                                    <MdKeyboardArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                        <img
+                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                            alt=""
+                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                        />
+                        <div className="w-full flex-auto md:w-2/4">
+                            <h2 className="text-secondary font-bold text-xl">
+                                Sea Pearl Beach Resort & Spa Cox's Bazar
+                            </h2>
+                            <p>Cox Bazar</p>
+                            <p>1 King Bed</p>
+                            <p>Breakfast included</p>
+                        </div>
+                        <div className="w-full flex-auto md:w-1/4 relative">
+                            <div className="flex items-center gap-1 justify-start md:justify-end">
+                                <h4 className="font-semibold">Review Score</h4>
+                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
+                                    6.2
+                                </span>
+                            </div>
+                            <div className="flex flex-col text-left md:text-right absolute bottom-0">
+                                <p>1 night, 2 adults</p>
+                                <h4 className="text-lg font-semibold">
+                                    BDT 14,152
+                                </h4>
+                                <button className="flex items-center bg-secondary hover:bg-primary transition duration-300 text-white text-lg font-semibold justify-between py-1 px-4 rounded-md mt-3">
+                                    <span>See Abvibility</span>{" "}
+                                    <MdKeyboardArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
