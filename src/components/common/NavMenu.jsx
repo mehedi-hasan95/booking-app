@@ -157,6 +157,7 @@ const NavMenu = () => {
                                             }
                                             moveRangeOnFirstSelection={false}
                                             ranges={pickDate}
+                                            minDate={new Date()}
                                         />
                                     </div>
                                 )}

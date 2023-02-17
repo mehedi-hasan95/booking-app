@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import React, { useState } from "react";
+import { DateRange } from "react-date-range";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
@@ -8,7 +9,7 @@ import { useLocation } from "react-router-dom";
 const HotelList = () => {
     const location = useLocation();
     const [distination, setDistination] = useState(location.state.distination);
-    const [pickDate, setPickDate] = useState(location.state.pickDate[0]);
+    const [pickDate, setPickDate] = useState(location.state.pickDate);
     const [rentRoom, setRentRoom] = useState(location.state.rentRoom);
 
     const [openDate, setOpenDate] = useState(false);
@@ -35,37 +36,35 @@ const HotelList = () => {
                     <div className="mb-2 relative">
                         <label htmlFor="date">Check in - out Date</label>
                         <div className="flex items-center bg-white px-3 py-2 rounded-md">
-                            <div className="flex items-center gap-3 flex-auto w-full">
+                            <div className="flex items-center gap-3 flex-auto w-full relative">
                                 <AiOutlineCalendar className="text-xl" />
-                                <input
+                                <span
                                     onClick={() => setOpenDate(!openDate)}
-                                    type="text"
-                                    name="date"
-                                    id="date"
-                                    className="cursor-pointer outline-none w-full placeholder-black"
-                                    placeholder={`${format(
-                                        pickDate.startDate,
+                                    className="outline-none w-full text-black placeholder-black font-medium cursor-pointer select-none"
+                                >
+                                    {format(
+                                        pickDate[0].startDate,
                                         "dd/MM/yyyy"
-                                    )} to ${format(
-                                        pickDate.endDate,
-                                        "dd/MM/yyyy"
-                                    )}`}
-                                />
+                                    )}{" "}
+                                    to
+                                    {format(pickDate[0].endDate, " dd/MM/yyyy")}
+                                </span>
+                                {openDate && (
+                                    <div className=" absolute top-8 z-10">
+                                        <DateRange
+                                            editableDateInputs={true}
+                                            onChange={(item) =>
+                                                setPickDate([item.selection])
+                                            }
+                                            moveRangeOnFirstSelection={false}
+                                            ranges={pickDate}
+                                            minDate={new Date()}
+                                        />
+                                    </div>
+                                )}
                             </div>
                             <FaAngleDown />
                         </div>
-                        {openDate && (
-                            <div className=" absolute top-12 z-10">
-                                <DateRange
-                                    editableDateInputs={true}
-                                    onChange={(item) =>
-                                        setPickDate([item.selection])
-                                    }
-                                    moveRangeOnFirstSelection={false}
-                                    ranges={pickDate}
-                                />
-                            </div>
-                        )}
                     </div>
                     <div className="mb-2 relative">
                         <label htmlFor="room">Room</label>
