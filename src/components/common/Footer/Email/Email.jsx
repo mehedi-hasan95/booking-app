@@ -3,7 +3,7 @@ import React from "react";
 const Email = () => {
     return (
         <div className="bg-[#00224F]">
-            <div className="max-w-6xl mx-auto py-16 text-center">
+            <div className="max-w-6xl mx-auto py-16 text-center px-4">
                 <h2 className="text-white text-2xl">Save time, save money!</h2>
                 <p className="text-gray-300">
                     Sign up and we'll send the best deals to you

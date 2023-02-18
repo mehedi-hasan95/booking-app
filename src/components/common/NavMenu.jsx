@@ -42,7 +42,7 @@ const NavMenu = () => {
     };
 
     return (
-        <div className="bg-primary">
+        <div className="px-6 bg-primary">
             <div className="container lg:max-w-6xl mx-auto py-5 relative">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <Link className="text-white text-2xl font-bold" to="/">
