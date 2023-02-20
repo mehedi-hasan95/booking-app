@@ -3,11 +3,7 @@ import React from "react";
 import Loading from "../../../components/Loading";
 
 const Featured = () => {
-    const {
-        data: topHotel,
-        isLoading,
-        error,
-    } = useQuery({
+    const { data: topHotel, isLoading } = useQuery({
         queryKey: ["repoData"],
         queryFn: async () => {
             const res = await fetch(
