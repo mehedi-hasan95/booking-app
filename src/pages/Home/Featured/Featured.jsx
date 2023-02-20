@@ -1,6 +1,22 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const Featured = () => {
+    const {
+        data: topHotel,
+        isLoading,
+        error,
+    } = useQuery({
+        queryKey: ["repoData"],
+        queryFn: async () => {
+            const res = await fetch(
+                `http://localhost:5000/api/hotel/cityHotel?cities=Jessore,khulna,kolkata,singapore,bangkok`
+            );
+            const data = res.json();
+            return data;
+        },
+    });
+    console.log(topHotel);
     return (
         <div className="pt-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -9,7 +25,7 @@ const Featured = () => {
                 >
                     <div className=" absolute top-5 left-5 ">
                         <h2 className="flex items-center gap-3 text-2xl">
-                            Dhaka{" "}
+                            Jessore{" "}
                             <span>
                                 <img
                                     src="https://i.ibb.co/4J4VrGb/bangladesh.png"
