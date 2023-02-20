@@ -62,7 +62,7 @@ const Featured = () => {
                     </div>
                     <div className=" absolute bottom-5 right-5 bg-orange-700 text-white font-semibold text-xl p-3">
                         <p>Deals start at</p>
-                        <span>BDT 1,136.87</span>
+                        <span>BDT 1,036.87</span>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,10 @@ const Featured = () => {
                             <h2 className="flex items-center gap-3 text-2xl text-white font-bold">
                                 Kolkata{" "}
                                 <span>
-                                    <img src="" alt="" />
+                                    <img
+                                        src="https://i.ibb.co/X2Wsdfk/india.png"
+                                        alt=""
+                                    />
                                 </span>
                             </h2>
                             <h3 className="text-xl">
@@ -87,7 +90,7 @@ const Featured = () => {
                     </div>
                     <div className=" absolute bottom-5 right-5 bg-orange-700 text-white font-semibold text-xl p-3">
                         <p>Deals start at</p>
-                        <span>BDT 1,136.87</span>
+                        <span>BDT 1,300.00</span>
                     </div>
                 </div>
                 <div
@@ -98,7 +101,10 @@ const Featured = () => {
                             <h2 className="flex items-center gap-3 text-2xl text-white font-bold">
                                 Singapore{" "}
                                 <span>
-                                    <img src="" alt="" />
+                                    <img
+                                        src="https://i.ibb.co/tLzGWS6/singapore.png"
+                                        alt=""
+                                    />
                                 </span>
                             </h2>
                             <h3 className="text-xl">
@@ -108,7 +114,7 @@ const Featured = () => {
                     </div>
                     <div className=" absolute bottom-5 right-5 bg-orange-700 text-white font-semibold text-xl p-3">
                         <p>Deals start at</p>
-                        <span>BDT 1,136.87</span>
+                        <span>BDT 2,231.17</span>
                     </div>
                 </div>
                 <div
@@ -119,7 +125,10 @@ const Featured = () => {
                             <h2 className="flex items-center gap-3 text-2xl text-white font-bold">
                                 Bangkok{" "}
                                 <span>
-                                    <img src="" alt="" />
+                                    <img
+                                        src="https://i.ibb.co/3YsQwhC/honglong.png"
+                                        alt=""
+                                    />
                                 </span>
                             </h2>
                             <h3 className="text-xl">
@@ -129,7 +138,7 @@ const Featured = () => {
                     </div>
                     <div className=" absolute bottom-5 right-5 bg-orange-700 text-white font-semibold text-xl p-3">
                         <p>Deals start at</p>
-                        <span>BDT 1,136.87</span>
+                        <span>BDT 1,364.00</span>
                     </div>
                 </div>
             </div>
