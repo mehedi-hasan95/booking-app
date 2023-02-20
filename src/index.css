@@ -5,3 +5,24 @@
 .max-content {
     height: max-content;
 }
+
+.featured-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 27, 65, 0.65) 0,
+        rgba(0, 27, 65, 0)
+    );
+    height: 35%;
+}
+
+.featured-top:hover .featured-bg {
+    background: linear-gradient(
+        140deg,
+        rgba(0, 27, 65, 0.801) 0,
+        rgba(1, 26, 59, 0)
+    );
+}

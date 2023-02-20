@@ -8,8 +8,8 @@ import Unique from "./Unique/Unique";
 const Home = () => {
     return (
         <div className="max-w-6xl mx-auto py-5 px-6 relative">
-            <Featured />
             <TopPicks />
+            <Featured />
             <Explore />
             <Offer />
             <Unique />
