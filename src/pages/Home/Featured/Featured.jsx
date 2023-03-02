@@ -4,7 +4,7 @@ import Loading from "../../../components/Loading";
 
 const Featured = () => {
     const { data: topHotel, isLoading } = useQuery({
-        queryKey: ["repoData"],
+        queryKey: ["topHotel"],
         queryFn: async () => {
             const res = await fetch(
                 `http://localhost:5000/api/hotel/cityHotel?cities=Jessore,khulna,kolkata,singapore,bangkok`

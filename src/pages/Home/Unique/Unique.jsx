@@ -1,6 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Loading from "../../../components/Loading";
 
 const Unique = () => {
+    const { data: featuredHotel, isLoading } = useQuery({
+        queryKey: ["featuredHotel"],
+        queryFn: async () => {
+            const res = await fetch(
+                `http://localhost:5000/api/hotel?featured=true`
+            );
+            const data = res.json();
+            return data;
+        },
+    });
+
+    if (isLoading) return <Loading />;
     return (
         <div>
             <h2 className="text-2xl font-bold py-7">
