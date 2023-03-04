@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import React, { useState } from "react";
 import { DateRange } from "react-date-range";
@@ -15,7 +16,6 @@ const HotelList = () => {
 
     const [openDate, setOpenDate] = useState(false);
     const [openRoom, setOpenRoom] = useState(false);
-    console.log(distination);
 
     const handleRoomRent = (name, option) => {
         setRentRoom((opt) => {
@@ -26,6 +26,20 @@ const HotelList = () => {
             };
         });
     };
+
+    // Featching Search
+    const { data: searchHotel, isLoading } = useQuery({
+        queryKey: ["searchHotel"],
+        queryFn: async () => {
+            const res = await fetch(
+                `http://localhost:5000/api/hotel?city=${distination.toLowerCase()}`
+            );
+            const data = await res.json();
+            return data;
+        },
+    });
+
+    console.log(searchHotel);
     return (
         <div className="container lg:max-w-6xl mx-auto py-5">
             <div className="flex flex-col lg:flex-row gap-5">
@@ -178,72 +192,47 @@ const HotelList = () => {
                     />
                 </div>
                 <div className="flex-auto w-full lg:w-3/4">
-                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
-                        <img
-                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
-                            alt=""
-                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
-                        />
-                        <div className="w-full flex-auto md:w-2/4">
-                            <h2 className="text-secondary font-bold text-xl">
-                                Sea Pearl Beach Resort & Spa Cox's Bazar
-                            </h2>
-                            <p>Cox Bazar</p>
-                            <p>1 King Bed</p>
-                            <p>Breakfast included</p>
-                        </div>
-                        <div className="w-full flex-auto md:w-1/4 relative">
-                            <div className="flex items-center gap-1 justify-start md:justify-end">
-                                <h4 className="font-semibold">Review Score</h4>
-                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
-                                    6.2
-                                </span>
+                    {searchHotel?.length > 0 ? (
+                        searchHotel?.map((search) => (
+                            <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                                <img
+                                    src="https://i.ibb.co/Fhkm0cp/hotel.webp"
+                                    alt=""
+                                    className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
+                                />
+                                <div className="w-full flex-auto md:w-2/4">
+                                    <h2 className="text-secondary font-bold text-xl">
+                                        {search?.name}
+                                    </h2>
+                                    <p className="capitalize">{search?.city}</p>
+                                    <p>{search.room.length} King Bed</p>
+                                    <p>Breakfast included</p>
+                                </div>
+                                <div className="w-full flex-auto md:w-1/4 relative">
+                                    <div className="flex items-center gap-1 justify-start md:justify-end">
+                                        <h4 className="font-semibold">
+                                            Review Score
+                                        </h4>
+                                        <span className="bg-primary px-2 py-1 font-bold text-white rounded-sm">
+                                            {search.rating}
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col text-left md:text-right md:absolute bottom-0">
+                                        <p>1 night, {rentRoom.adult} adults</p>
+                                        <h4 className="text-lg font-semibold">
+                                            BDT {search.price}
+                                        </h4>
+                                        <button className="flex items-center bg-secondary justify-center hover:bg-primary transition duration-300 text-white text-lg font-semibold py-2 px-4 rounded-md mt-3">
+                                            <span>See Abvibility</span>{" "}
+                                            <MdKeyboardArrowRight />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex flex-col text-left md:text-right md:absolute bottom-0">
-                                <p>1 night, 2 adults</p>
-                                <h4 className="text-lg font-semibold">
-                                    BDT 14,152
-                                </h4>
-                                <button className="flex items-center bg-secondary justify-center hover:bg-primary transition duration-300 text-white text-lg font-semibold py-2 px-4 rounded-md mt-3">
-                                    <span>See Abvibility</span>{" "}
-                                    <MdKeyboardArrowRight />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
-                        <img
-                            src="https://i.ibb.co/Fhkm0cp/hotel.webp"
-                            alt=""
-                            className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
-                        />
-                        <div className="w-full flex-auto md:w-2/4">
-                            <h2 className="text-secondary font-bold text-xl">
-                                Sea Pearl Beach Resort & Spa Cox's Bazar
-                            </h2>
-                            <p>Cox Bazar</p>
-                            <p>1 King Bed</p>
-                            <p>Breakfast included</p>
-                        </div>
-                        <div className="w-full flex-auto md:w-1/4 relative">
-                            <div className="flex items-center gap-1 justify-start md:justify-end">
-                                <h4 className="font-semibold">Review Score</h4>
-                                <span className="bg-primary p-1 font-bold text-white rounded-sm">
-                                    6.2
-                                </span>
-                            </div>
-                            <div className="flex flex-col text-left md:text-right md:absolute bottom-0">
-                                <p>1 night, 2 adults</p>
-                                <h4 className="text-lg font-semibold">
-                                    BDT 14,152
-                                </h4>
-                                <button className="flex items-center bg-secondary justify-center hover:bg-primary transition duration-300 text-white text-lg font-semibold py-2 px-4 rounded-md mt-3">
-                                    <span>See Abvibility</span>{" "}
-                                    <MdKeyboardArrowRight />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                        ))
+                    ) : (
+                        <h2 className="text-2xl">No Hotel found</h2>
+                    )}
                 </div>
             </div>
         </div>

@@ -150,7 +150,10 @@ const Featured = () => {
                 </h2>
                 <div className="flex gap-7">
                     <div className="flex-auto w-2/4">
-                        <img src="https://i.ibb.co/rMGY1BV/flex.webp" alt="" />
+                        <img
+                            src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80"
+                            alt=""
+                        />
                         <h2 className="text-xl font-bold">
                             Top places in Japan to see cherry blossoms
                         </h2>
@@ -160,7 +163,10 @@ const Featured = () => {
                         </p>
                     </div>
                     <div className="flex-auto w-1/4">
-                        <img src="https://i.ibb.co/rMGY1BV/flex.webp" alt="" />
+                        <img
+                            src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                        />
                         <h2 className="text-xl font-bold">
                             Top places in Japan to see cherry blossoms
                         </h2>
@@ -170,7 +176,10 @@ const Featured = () => {
                         </p>
                     </div>
                     <div className="flex-auto w-1/4">
-                        <img src="https://i.ibb.co/rMGY1BV/flex.webp" alt="" />
+                        <img
+                            src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                        />
                         <h2 className="text-xl font-bold">
                             Top places in Japan to see cherry blossoms
                         </h2>

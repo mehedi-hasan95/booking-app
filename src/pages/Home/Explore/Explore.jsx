@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Navigation } from "swiper";
+import { Autoplay, Navigation } from "swiper";
 import { useQuery } from "@tanstack/react-query";
 
 const Explore = () => {
@@ -35,9 +35,10 @@ const Explore = () => {
             </p>
             <Swiper
                 navigation={true}
-                modules={[Navigation]}
-                className="py-10 swiperSlider"
+                modules={[Navigation, Autoplay]}
+                className="pb-10 swiperSlider"
                 loop={true}
+                autoplay={{ delay: 2000 }}
                 spaceBetween={50}
                 slidesPerView={3}
                 breakpoints={{
@@ -57,9 +58,53 @@ const Explore = () => {
                 <SwiperSlide>
                     <div className="flex-1">
                         <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
+                            src="https://images.unsplash.com/photo-1642832520839-a30ac9bcadd9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                             alt=""
-                            className="w-full"
+                            className="w-full hover:scale-110 transition duration-300"
+                        />
+                        <h4 className="text-xl font-bold">Jessore</h4>
+                        <p>28 properties</p>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div className="flex-1">
+                        <img
+                            src="https://images.unsplash.com/photo-1542202229-7d93c33f5d07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                            className="w-full hover:scale-110 transition duration-300"
+                        />
+                        <h4 className="text-xl font-bold">Khulna</h4>
+                        <p>46 properties</p>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div className="flex-1">
+                        <img
+                            src="https://images.unsplash.com/photo-1500904156668-758cff89dcff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                            className="w-full hover:scale-110 transition duration-300"
+                        />
+                        <h4 className="text-xl font-bold">Dhaka</h4>
+                        <p>49 properties</p>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div className="flex-1">
+                        <img
+                            src="https://images.unsplash.com/photo-1677758363734-aa22dfc62550?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                            className="w-full hover:scale-110 transition duration-300"
+                        />
+                        <h4 className="text-xl font-bold">Rajshahi</h4>
+                        <p>12 properties</p>
+                    </div>
+                </SwiperSlide>
+                <SwiperSlide>
+                    <div className="flex-1">
+                        <img
+                            src="https://images.unsplash.com/photo-1677758363734-aa22dfc62550?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                            alt=""
+                            className="w-full hover:scale-110 transition duration-300"
                         />
                         <h4 className="text-xl font-bold">Jessore</h4>
                         <p>49 properties</p>
@@ -68,53 +113,9 @@ const Explore = () => {
                 <SwiperSlide>
                     <div className="flex-1">
                         <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
+                            src="https://images.unsplash.com/photo-1677680062704-a49d4c44ab3b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
                             alt=""
-                            className="w-full"
-                        />
-                        <h4 className="text-xl font-bold">Jessore</h4>
-                        <p>49 properties</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="flex-1">
-                        <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
-                            alt=""
-                            className="w-full"
-                        />
-                        <h4 className="text-xl font-bold">Jessore</h4>
-                        <p>49 properties</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="flex-1">
-                        <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
-                            alt=""
-                            className="w-full"
-                        />
-                        <h4 className="text-xl font-bold">Jessore</h4>
-                        <p>49 properties</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="flex-1">
-                        <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
-                            alt=""
-                            className="w-full"
-                        />
-                        <h4 className="text-xl font-bold">Jessore</h4>
-                        <p>49 properties</p>
-                    </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div className="flex-1">
-                        <img
-                            src="https://r-xx.bstatic.com/xdata/images/city/250x250/761433.jpg?k=21910a5884ba4c680badac1131347de875f68cf188a389376d8b5b2f7a75582e&o="
-                            alt=""
-                            className="w-full"
+                            className="w-full hover:scale-110 transition duration-300"
                         />
                         <h4 className="text-xl font-bold">Jessore</h4>
                         <p>49 properties</p>
@@ -131,7 +132,11 @@ const Explore = () => {
                     {hotelType &&
                         imgs.map((img, index) => (
                             <div className="" key={index}>
-                                <img src={img} alt="" className="w-full h-60" />
+                                <img
+                                    src={img}
+                                    alt=""
+                                    className="w-full h-60 hover:scale-110 transition duration-300"
+                                />
                                 <h4 className="text-xl font-bold capitalize">
                                     {hotelType[index].type}
                                 </h4>
