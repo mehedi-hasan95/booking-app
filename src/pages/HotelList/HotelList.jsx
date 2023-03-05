@@ -239,12 +239,9 @@ const HotelList = () => {
                                     className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
                                 />
                                 <div className="w-full flex-auto md:w-2/4">
-                                    <Link
-                                        to={`/hotels/${search._id}`}
-                                        className="text-secondary font-bold text-xl"
-                                    >
+                                    <h2 className="text-secondary font-bold text-xl">
                                         {search?.name}
-                                    </Link>
+                                    </h2>
                                     <p className="capitalize">{search?.city}</p>
                                     <p>{search.room.length} King Bed</p>
                                     <p>Breakfast included</p>
@@ -263,10 +260,13 @@ const HotelList = () => {
                                         <h4 className="text-lg font-semibold">
                                             BDT {search.price}
                                         </h4>
-                                        <button className="flex items-center bg-secondary justify-center hover:bg-primary transition duration-300 text-white text-lg font-semibold py-2 px-4 rounded-md mt-3">
+                                        <Link
+                                            to={`/hotels/${search._id}`}
+                                            className="flex items-center bg-secondary justify-center hover:bg-primary transition duration-300 text-white text-lg font-semibold py-2 px-4 rounded-md mt-3"
+                                        >
                                             <span>See Abvibility</span>{" "}
                                             <MdKeyboardArrowRight />
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

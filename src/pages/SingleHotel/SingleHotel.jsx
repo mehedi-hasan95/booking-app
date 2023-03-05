@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { GiEarthAsiaOceania } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useLoaderData } from "react-router-dom";
+import { SearchContext } from "../../AuthProvider/SearchContext";
 
 const SingleHotel = () => {
     const {
@@ -17,6 +18,18 @@ const SingleHotel = () => {
         title,
         type,
     } = useLoaderData();
+
+    // Context API for Dates
+    const { pickDate } = useContext(SearchContext);
+
+    const miliSeconds = 1000 * 60 * 60 * 24;
+    function dayStay(date1, date2) {
+        const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.ceil(timeDiff / miliSeconds);
+        return diffDays;
+    }
+
+    const stayDays = dayStay(pickDate[0].endDate, pickDate[0].startDate);
 
     const images = [
         { src: "https://i.ibb.co/HpYCh4D/hotel.jpg" },
@@ -127,10 +140,11 @@ const SingleHotel = () => {
                         </div>
                         <p>Free parking available at the hotel</p>
                         <h3 className="text-lg font-bold py-2">
-                            Perfect for 3 night stand
+                            Perfect for {stayDays} night stand
                         </h3>
                         <span className="text-lg font-bold">
-                            $<span> {price} </span> <span>(9 days)</span>
+                            $<span> {price * stayDays} </span>{" "}
+                            <span>({stayDays} days)</span>
                         </span>
                         <button className="bg-secondary hover:bg-primary transition duration-300 block w-full py-2 rounded-md text-lg font-bold text-white mt-3">
                             Reserve

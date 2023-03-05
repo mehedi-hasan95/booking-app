@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosAirplane, IoIosBed, IoIosSettings } from "react-icons/io";
 import { FaCarSide, FaTaxi } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
+import { SearchContext } from "../../AuthProvider/SearchContext";
 
 const NavMenu = () => {
     const navigate = useNavigate();
@@ -28,7 +29,12 @@ const NavMenu = () => {
         room: 1,
     });
 
+    const { dispatch } = useContext(SearchContext);
     const handleSearch = () => {
+        dispatch({
+            type: "NEW_SEARCH",
+            payload: { distination, pickDate, rentRoom },
+        });
         navigate("/hotels", { state: { distination, pickDate, rentRoom } });
     };
     const handleRoomRent = (name, option) => {
