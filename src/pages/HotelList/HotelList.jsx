@@ -6,7 +6,7 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useLoaderData, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loading from "../../components/Loading";
 
 const HotelList = () => {
@@ -229,16 +229,22 @@ const HotelList = () => {
                 <div className="flex-auto w-full lg:w-3/4">
                     {searchHotel?.length > 0 ? (
                         searchHotel?.map((search) => (
-                            <div className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5">
+                            <div
+                                key={search._id}
+                                className="flex flex-col md:flex-row gap-5 mb-5 border rounded-md p-5"
+                            >
                                 <img
                                     src="https://i.ibb.co/Fhkm0cp/hotel.webp"
                                     alt=""
                                     className="w-full md:max-w-[200px] md:max-h-[200px] flex-auto md:w-1/4"
                                 />
                                 <div className="w-full flex-auto md:w-2/4">
-                                    <h2 className="text-secondary font-bold text-xl">
+                                    <Link
+                                        to={`/hotels/${search._id}`}
+                                        className="text-secondary font-bold text-xl"
+                                    >
                                         {search?.name}
-                                    </h2>
+                                    </Link>
                                     <p className="capitalize">{search?.city}</p>
                                     <p>{search.room.length} King Bed</p>
                                     <p>Breakfast included</p>

@@ -11,6 +11,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper";
+import { Link } from "react-router-dom";
 
 const Unique = () => {
     const { data: featuredHotel, isLoading } = useQuery({
@@ -60,9 +61,12 @@ const Unique = () => {
                                         src="https://i.ibb.co/rMGY1BV/flex.webp"
                                         alt=""
                                     />
-                                    <h2 className="text-lg font-bold">
+                                    <Link
+                                        to={`/hotels/${hotel._id}`}
+                                        className="text-lg font-bold"
+                                    >
                                         {hotel.title}
-                                    </h2>
+                                    </Link>
                                     <p>
                                         {hotel?.city}, {hotel?.country}.
                                     </p>

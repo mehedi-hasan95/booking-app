@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { GiEarthAsiaOceania } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useLoaderData } from "react-router-dom";
 
 const SingleHotel = () => {
+    const {
+        address,
+        city,
+        country,
+        desc,
+        distance,
+        photos,
+        price,
+        rating,
+        title,
+        type,
+    } = useLoaderData();
+
     const images = [
         { src: "https://i.ibb.co/HpYCh4D/hotel.jpg" },
         { src: "https://i.ibb.co/HpYCh4D/hotel.jpg" },
@@ -65,14 +79,14 @@ const SingleHotel = () => {
             <div className="container mx-auto lg:max-w-6xl py-6">
                 <div className="flex justify-between">
                     <div>
-                        <h2 className="text-2xl font-bold">
-                            Sea Pearl Beach Resort & Spa Cox's Bazar
-                        </h2>
+                        <h2 className="text-2xl font-bold">{title}</h2>
                         <p className="flex gap-1 items-baseline py-2">
                             <span className="text-lg">
                                 <FaMapMarkerAlt />
                             </span>{" "}
-                            <span className="text-lg">Jessore, Bangladesh</span>
+                            <span className="text-lg capitalize">
+                                {address}, {city}
+                            </span>
                         </p>
                         <p className="text-xl font-bold text-secondary">
                             Free Taxi
@@ -97,32 +111,14 @@ const SingleHotel = () => {
                 </div>
                 <div className="flex flex-col md:flex-row gap-5 pt-10">
                     <div className="flex-auto w-full md:flex-3/4">
-                        <p>
-                            Facing the beachfront, Sea Pearl Beach Resort & Spa
-                            Cox's Bazar offers 5-star accommodations in Cox's
-                            Bazar and features an outdoor swimming pool, fitness
-                            center and garden. This 5-star hotel offers a
-                            24-hour front desk and an ATM. The property provides
-                            free shuttle service, room service and currency
-                            exchange for guests. The hotel offers a buffet or
-                            continental breakfast. At Sea Pearl Beach Resort &
-                            Spa Cox's Bazar you'll find a restaurant serving
-                            American, Indian and Japanese cuisine. A halal
-                            option can also be requested. The accommodation has
-                            a sun terrace. You can play tennis at this 5-star
-                            hotel, and car rental is available. The nearest
-                            airport is Cox's Bazar Airport, 27.4 km from Sea
-                            Pearl Beach Resort & Spa Cox's Bazar. Sea Pearl
-                            Beach Resort & Spa Cox's Bazar has been welcoming
-                            Booking.com guests since Aug 8, 2022 Distance in
-                            property description is calculated using ©
-                            OpenStreetMap
-                        </p>
+                        <p>{desc}</p>
                     </div>
                     <div className="flex-auto w-full md:w-1/3 bg-green-100 px-5 py-6">
                         <h4 className="font-bold pb-2">Property Highlights</h4>
                         <h5 className="font-semibold pb-2">Breakfast Info</h5>
-                        <p className="pb-2">Continental, Buffet</p>
+                        <p className="pb-2">
+                            {city}, {country}
+                        </p>
                         <div className="flex gap-2 items-center pb-2">
                             <span>
                                 <GiEarthAsiaOceania />
@@ -134,7 +130,7 @@ const SingleHotel = () => {
                             Perfect for 3 night stand
                         </h3>
                         <span className="text-lg font-bold">
-                            $<span> 940 </span> <span>(9 days)</span>
+                            $<span> {price} </span> <span>(9 days)</span>
                         </span>
                         <button className="bg-secondary hover:bg-primary transition duration-300 block w-full py-2 rounded-md text-lg font-bold text-white mt-3">
                             Reserve

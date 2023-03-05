@@ -11,7 +11,12 @@ const router = createBrowserRouter([
         children: [
             { path: "/", element: <Home /> },
             { path: "hotels", element: <HotelList /> },
-            { path: "s", element: <SingleHotel /> },
+            {
+                path: "hotels/:id",
+                element: <SingleHotel></SingleHotel>,
+                loader: ({ params }) =>
+                    fetch(`http://localhost:5000/api/hotel/find/${params.id}`),
+            },
         ],
     },
 ]);
