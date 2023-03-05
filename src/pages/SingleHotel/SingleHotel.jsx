@@ -24,12 +24,12 @@ const SingleHotel = () => {
 
     const miliSeconds = 1000 * 60 * 60 * 24;
     function dayStay(date1, date2) {
-        const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        const timeDiff = Math.abs(date2?.getTime() - date1?.getTime());
         const diffDays = Math.ceil(timeDiff / miliSeconds);
         return diffDays;
     }
 
-    const stayDays = dayStay(pickDate[0].endDate, pickDate[0].startDate);
+    const stayDays = dayStay(pickDate[0]?.endDate, pickDate[0]?.startDate);
 
     const images = [
         { src: "https://i.ibb.co/HpYCh4D/hotel.jpg" },
@@ -140,11 +140,16 @@ const SingleHotel = () => {
                         </div>
                         <p>Free parking available at the hotel</p>
                         <h3 className="text-lg font-bold py-2">
-                            Perfect for {stayDays} night stand
+                            Perfect for {stayDays > 0 ? stayDays : 1} night
+                            stand
                         </h3>
                         <span className="text-lg font-bold">
-                            $<span> {price * stayDays} </span>{" "}
-                            <span>({stayDays} days)</span>
+                            $
+                            <span>
+                                {" "}
+                                {price * (stayDays > 0 ? stayDays : 1)}{" "}
+                            </span>{" "}
+                            <span>({stayDays > 0 ? stayDays : 1} days)</span>
                         </span>
                         <button className="bg-secondary hover:bg-primary transition duration-300 block w-full py-2 rounded-md text-lg font-bold text-white mt-3">
                             Reserve
