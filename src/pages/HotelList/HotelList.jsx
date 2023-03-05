@@ -6,7 +6,8 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
 import { FaAngleDown } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const HotelList = () => {
     const location = useLocation();
@@ -16,6 +17,8 @@ const HotelList = () => {
 
     const [openDate, setOpenDate] = useState(false);
     const [openRoom, setOpenRoom] = useState(false);
+    const [min, setMin] = useState(undefined);
+    const [max, setMax] = useState(undefined);
 
     const handleRoomRent = (name, option) => {
         setRentRoom((opt) => {
@@ -28,18 +31,29 @@ const HotelList = () => {
     };
 
     // Featching Search
-    const { data: searchHotel, isLoading } = useQuery({
+    const {
+        data: searchHotel,
+        isLoading,
+        refetch,
+    } = useQuery({
         queryKey: ["searchHotel"],
         queryFn: async () => {
             const res = await fetch(
-                `http://localhost:5000/api/hotel?city=${distination.toLowerCase()}`
+                `http://localhost:5000/api/hotel?city=${distination.toLowerCase()}&min=${
+                    min || 0
+                }&max=${max || 9999999999}`
             );
             const data = await res.json();
             return data;
         },
     });
 
-    console.log(searchHotel);
+    const newDestination = () => {
+        refetch();
+    };
+
+    if (isLoading) return <Loading />;
+
     return (
         <div className="container lg:max-w-6xl mx-auto py-5">
             <div className="flex flex-col lg:flex-row gap-5">
@@ -185,10 +199,31 @@ const HotelList = () => {
                             )}
                         </div>
                     </div>
+                    <div className="flex flex-col">
+                        <label htmlFor="min">Minimum Price: </label>
+                        <input
+                            className="py-2 px-3 rounded-md outline-none"
+                            type="number"
+                            name=""
+                            id="min"
+                            onChange={(e) => setMin(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex flex-col pt-2">
+                        <label htmlFor="max">Maximum Price: </label>
+                        <input
+                            className="py-2 px-3 rounded-md outline-none"
+                            type="number"
+                            name=""
+                            id="max"
+                            onChange={(e) => setMax(e.target.value)}
+                        />
+                    </div>
                     <input
+                        onClick={newDestination}
                         type="submit"
                         value="Search"
-                        className=" bg-secondary hover:bg-primary transition duration-300 rounded-md block px-4 py-2 w-full cursor-pointer text-white font-medium text-xl "
+                        className=" bg-secondary hover:bg-primary transition duration-300 rounded-md block px-4 py-2 mt-3 w-full cursor-pointer text-white font-medium text-xl "
                     />
                 </div>
                 <div className="flex-auto w-full lg:w-3/4">
