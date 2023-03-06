@@ -20,7 +20,8 @@ const SingleHotel = () => {
     } = useLoaderData();
 
     // Context API for Dates
-    const { pickDate } = useContext(SearchContext);
+    const { pickDate, rentRoom } = useContext(SearchContext);
+    console.log(rentRoom.room);
 
     const miliSeconds = 1000 * 60 * 60 * 24;
     function dayStay(date1, date2) {
@@ -147,7 +148,11 @@ const SingleHotel = () => {
                             $
                             <span>
                                 {" "}
-                                {price * (stayDays > 0 ? stayDays : 1)}{" "}
+                                {price *
+                                    (stayDays > 0 ? stayDays : 1) *
+                                    (rentRoom.room > 0
+                                        ? rentRoom.room
+                                        : 1)}{" "}
                             </span>{" "}
                             <span>({stayDays > 0 ? stayDays : 1} days)</span>
                         </span>
