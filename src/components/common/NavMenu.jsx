@@ -9,6 +9,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { SearchContext } from "../../AuthProvider/SearchContext";
+import Modal from "../Modal/Modal";
 
 const NavMenu = () => {
     const navigate = useNavigate();
@@ -67,6 +68,7 @@ const NavMenu = () => {
                         >
                             Sign In
                         </Link>
+                        <Modal />
                     </div>
                 </div>
                 <div className="pt-7">
