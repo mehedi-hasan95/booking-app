@@ -9,7 +9,6 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { SearchContext } from "../../AuthProvider/SearchContext";
-import Modal from "../Modal/Modal";
 
 const NavMenu = () => {
     const navigate = useNavigate();
@@ -58,17 +57,10 @@ const NavMenu = () => {
                     <div className="flex gap-6">
                         <Link
                             className="bg-white px-4 py-1 text-secondary font-medium"
-                            to=""
-                        >
-                            Register
-                        </Link>
-                        <Link
-                            className="bg-white px-4 py-1 text-secondary font-medium"
-                            to=""
+                            to="/login"
                         >
                             Sign In
                         </Link>
-                        <Modal />
                     </div>
                 </div>
                 <div className="pt-7">
