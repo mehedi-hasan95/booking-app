@@ -1,7 +1,46 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Register = () => {
+    // context api
+    const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+    const createNewUser = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const fname = form.fname.value;
+        const lname = form.lname.value;
+        const email = form.email.value;
+        const photoURL = form.url.value;
+        const password = form.password.value;
+        const confirm = form.confirm.value;
+
+        if (password !== confirm) {
+            return;
+        }
+
+        createUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                updateCreatedUser(fname, photoURL);
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+
+        const updateCreatedUser = (name, photo) => {
+            const profile = {
+                displayName: name,
+                photoURL: photo,
+            };
+            updateUser(profile)
+                .then(() => {})
+                .catch((error) => {});
+        };
+    };
     return (
         <div className="lg:max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
@@ -14,8 +53,7 @@ const Register = () => {
                             Register
                         </h1>
                         <form
-                            novalidate=""
-                            action=""
+                            onSubmit={createNewUser}
                             className="space-y-6 ng-untouched ng-pristine ng-valid"
                         >
                             <div className="space-y-1 text-sm">
@@ -59,7 +97,7 @@ const Register = () => {
                                 </label>
                                 <input
                                     required
-                                    type="text"
+                                    type="email"
                                     name="email"
                                     id="email"
                                     placeholder="Your Email"
@@ -94,6 +132,21 @@ const Register = () => {
                                     name="confirm"
                                     id="confirm"
                                     placeholder="Confirm Password"
+                                    className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
+                                />
+                            </div>
+                            <div className="space-y-1 text-sm">
+                                <label
+                                    htmlFor="url"
+                                    className="block dark:text-gray-400"
+                                >
+                                    Photo URL
+                                </label>
+                                <input
+                                    type="text"
+                                    name="url"
+                                    id="url"
+                                    placeholder="Photo URL"
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                             </div>

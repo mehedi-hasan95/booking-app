@@ -1,7 +1,50 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
+
+    // Context
+    const { googleLogin, loginUser } = useContext(AuthContext);
+
+    // Login with Gmail
+    const provider = new GoogleAuthProvider();
+    const loginWithGoogle = () => {
+        googleLogin(provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                // ...
+            });
+    };
+
+    // Handle Login
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        loginUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                navigate(from, { replace: true });
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            });
+    };
+
     return (
         <div className="lg:max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
@@ -14,22 +57,21 @@ const Login = () => {
                             Login
                         </h1>
                         <form
-                            novalidate=""
-                            action=""
+                            onSubmit={handleLogin}
                             className="space-y-6 ng-untouched ng-pristine ng-valid"
                         >
                             <div className="space-y-1 text-sm">
                                 <label
-                                    htmlFor="username"
+                                    htmlFor="email"
                                     className="block dark:text-gray-400"
                                 >
-                                    Username
+                                    Your Email
                                 </label>
                                 <input
-                                    type="text"
-                                    name="username"
-                                    id="username"
-                                    placeholder="Username"
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Your Email"
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                             </div>

@@ -13,7 +13,7 @@ import app from "../Firebase/Firebase.init";
 
 // Create a client tanstack Query
 const queryClient = new QueryClient();
-const AuthContext = createContext();
+export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     };
 
     // Sing In with Gmail
-    const googleLogin = () => {
+    const googleLogin = (provider) => {
         setLoading(true);
         return signInWithPopup(auth, provider);
     };
