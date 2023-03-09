@@ -14,32 +14,53 @@ const Register = () => {
         const photoURL = form.url.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
+        const photo = form.files.files[0];
 
         if (password !== confirm) {
             return;
         }
 
-        createUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                updateCreatedUser(fname, photoURL);
-                console.log(user);
+        // Upload Image to imbBB for the profile
+        const uploadImage = import.meta.env.VITE_APP_imgBB;
+        const formData = new FormData();
+        formData.append("image", photo);
+        const url = `https://api.imgbb.com/1/upload?key=${uploadImage}`;
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.success) {
+                    const imgURL = result.data.url;
+                    // Create user using firebase
+                    createUser(email, password)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            updateCreatedUser(fname, imgURL);
+                            console.log(user);
+                        })
+                        .catch((error) => {
+                            const errorCode = error.code;
+                            const errorMessage = error.message;
+                            console.log(errorMessage);
+                        });
+
+                    const updateCreatedUser = (name, photo) => {
+                        const profile = {
+                            displayName: name,
+                            photoURL: photo,
+                        };
+                        updateUser(profile)
+                            .then(() => {})
+                            .catch((error) => {});
+                    };
+                }
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // ..
+                console.error("Error:", error);
             });
-
-        const updateCreatedUser = (name, photo) => {
-            const profile = {
-                displayName: name,
-                photoURL: photo,
-            };
-            updateUser(profile)
-                .then(() => {})
-                .catch((error) => {});
-        };
     };
     return (
         <div className="lg:max-w-6xl mx-auto">
@@ -150,6 +171,22 @@ const Register = () => {
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                             </div>
+                            <fieldset className="w-full space-y-1 dark:text-gray-100">
+                                <label
+                                    htmlFor="files"
+                                    className="block text-sm font-medium"
+                                >
+                                    Attachments
+                                </label>
+                                <div className="flex">
+                                    <input
+                                        type="file"
+                                        name="files"
+                                        id="files"
+                                        className="px-8 py-12 border-2 border-dashed rounded-md dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                                    />
+                                </div>
+                            </fieldset>
                             <button className="block mx-auto md:w-full p-3 text-center rounded-sm bg-secondary text-white">
                                 Sign in
                             </button>
@@ -175,6 +212,7 @@ const Register = () => {
                                 </svg>
                             </button>
                         </div>
+
                         <p className="text-xs text-center sm:px-6 dark:text-gray-400">
                             Do you have an account?
                             <Link
