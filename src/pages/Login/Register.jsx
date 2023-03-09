@@ -71,6 +71,29 @@ const Register = () => {
                             .then(() => {})
                             .catch((error) => {});
                     };
+
+                    // Which data will be sent to DB
+                    const data = {
+                        fname,
+                        lname,
+                        email,
+                    };
+
+                    // Send data to DB
+                    fetch("http://localhost:5000/api/users", {
+                        method: "POST", // or 'PUT'
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log("Success:", data);
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
                 }
             })
             .catch((error) => {
