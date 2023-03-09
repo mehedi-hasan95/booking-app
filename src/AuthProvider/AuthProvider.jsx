@@ -4,6 +4,7 @@ import {
     createUserWithEmailAndPassword,
     getAuth,
     onAuthStateChanged,
+    sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -44,6 +45,12 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider);
     };
 
+    // Password reset
+    const passwordReset = (email) => {
+        setLoading(true);
+        return sendPasswordResetEmail(auth, email);
+    };
+
     // Sign Out a user
     const logOut = () => {
         setLoading(true);
@@ -67,6 +74,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         user,
         loading,
+        passwordReset,
     };
     return (
         <QueryClientProvider client={queryClient}>

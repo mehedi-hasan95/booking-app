@@ -1,17 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Register = () => {
+    const [file, setFile] = useState(null);
     // context api
     const { createUser, updateUser, googleLogin } = useContext(AuthContext);
+
+    // create user with Gmail
+    const provider = new GoogleAuthProvider();
+    const loginWithGoogle = () => {
+        googleLogin(provider)
+            .then((result) => {
+                const user = result.user;
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                // ...
+            });
+    };
+
+    // Create New User using email
     const createNewUser = (e) => {
         e.preventDefault();
         const form = e.target;
         const fname = form.fname.value;
         const lname = form.lname.value;
         const email = form.email.value;
-        const photoURL = form.url.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
         const photo = form.files.files[0];
@@ -39,14 +55,13 @@ const Register = () => {
                         .then((userCredential) => {
                             const user = userCredential.user;
                             updateCreatedUser(fname, imgURL);
-                            console.log(user);
                         })
                         .catch((error) => {
                             const errorCode = error.code;
                             const errorMessage = error.message;
-                            console.log(errorMessage);
                         });
 
+                    // Update user name while registration
                     const updateCreatedUser = (name, photo) => {
                         const profile = {
                             displayName: name,
@@ -156,39 +171,45 @@ const Register = () => {
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                             </div>
-                            <div className="space-y-1 text-sm">
-                                <label
-                                    htmlFor="url"
-                                    className="block dark:text-gray-400"
-                                >
-                                    Photo URL
-                                </label>
-                                <input
-                                    type="text"
-                                    name="url"
-                                    id="url"
-                                    placeholder="Photo URL"
-                                    className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
-                                />
-                            </div>
-                            <fieldset className="w-full space-y-1 dark:text-gray-100">
-                                <label
-                                    htmlFor="files"
-                                    className="block text-sm font-medium"
-                                >
-                                    Attachments
-                                </label>
-                                <div className="flex">
-                                    <input
-                                        type="file"
-                                        name="files"
-                                        id="files"
-                                        className="px-8 py-12 border-2 border-dashed rounded-md dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
-                                    />
+
+                            <fieldset className="w-full space-y-1 dark:text-gray-100 flex gap-4 items-center">
+                                <div>
+                                    {file ? (
+                                        <img
+                                            className="max-w-md border border-violet-400 rounded-xl w-20 h-20"
+                                            src={URL.createObjectURL(file)}
+                                            alt=""
+                                        />
+                                    ) : (
+                                        <img
+                                            className="max-w-md border border-violet-400 rounded-xl w-20 h-20"
+                                            src="https://i.ibb.co/LNHHrTZ/profile.webp"
+                                            alt=""
+                                        />
+                                    )}
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="files"
+                                        className="block text-sm font-medium"
+                                    >
+                                        Profile Picture
+                                    </label>
+                                    <div className="flex">
+                                        <input
+                                            onChange={(e) =>
+                                                setFile(e.target.files[0])
+                                            }
+                                            type="file"
+                                            name="files"
+                                            id="files"
+                                            className="px-8 py-12 border-2 border-dashed rounded-md dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
+                                        />
+                                    </div>
                                 </div>
                             </fieldset>
                             <button className="block mx-auto md:w-full p-3 text-center rounded-sm bg-secondary text-white">
-                                Sign in
+                                Register
                             </button>
                         </form>
                         <div className="flex items-center pt-4 space-x-1">
@@ -198,7 +219,10 @@ const Register = () => {
                             </p>
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
                         </div>
-                        <div className="flex justify-center space-x-4">
+                        <div
+                            onClick={loginWithGoogle}
+                            className="flex justify-center space-x-4"
+                        >
                             <button
                                 aria-label="Log in with Google"
                                 className="p-3 rounded-sm"

@@ -1,16 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Login = () => {
+    const [userEmail, setUserEmail] = useState("");
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || "/";
 
     // Context
-    const { googleLogin, loginUser } = useContext(AuthContext);
+    const { googleLogin, loginUser, passwordReset } = useContext(AuthContext);
 
     // Login with Gmail
     const provider = new GoogleAuthProvider();
@@ -45,6 +47,27 @@ const Login = () => {
             });
     };
 
+    const handleEmail = (e) => {
+        const email = e.target.value;
+        setUserEmail(email);
+    };
+
+    const resetPassword = () => {
+        if (!userEmail) {
+            setError("Please add your email");
+            return;
+        }
+        passwordReset(userEmail)
+            .then(() => {
+                setError("Please check your Email");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+    };
+
     return (
         <div className="lg:max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 items-center">
@@ -68,6 +91,7 @@ const Login = () => {
                                     Your Email
                                 </label>
                                 <input
+                                    onBlur={handleEmail}
                                     type="email"
                                     name="email"
                                     id="email"
@@ -75,6 +99,11 @@ const Login = () => {
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                             </div>
+                            {error && (
+                                <p className=" text-red-700 font-bold">
+                                    {error}
+                                </p>
+                            )}
                             <div className="space-y-1 text-sm">
                                 <label
                                     htmlFor="password"
@@ -90,9 +119,14 @@ const Login = () => {
                                     className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 focus:border-black text-xl border-2 border-primary"
                                 />
                                 <div className="flex justify-end text-xs dark:text-gray-400">
-                                    <a rel="noopener noreferrer" href="#">
+                                    <span
+                                        onClick={resetPassword}
+                                        className="cursor-pointer hover:text-red-700"
+                                        rel="noopener noreferrer"
+                                        href="#"
+                                    >
                                         Forgot Password?
-                                    </a>
+                                    </span>
                                 </div>
                             </div>
                             <button className="block mx-auto md:w-full p-3 text-center rounded-sm bg-secondary text-white">
@@ -106,7 +140,10 @@ const Login = () => {
                             </p>
                             <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
                         </div>
-                        <div className="flex justify-center space-x-4">
+                        <div
+                            onClick={loginWithGoogle}
+                            className="flex justify-center space-x-4"
+                        >
                             <button
                                 aria-label="Log in with Google"
                                 className="p-3 rounded-sm"
