@@ -9,8 +9,11 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { SearchContext } from "../../AuthProvider/SearchContext";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const NavMenu = () => {
+    // Use Context
+    const { user, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [distination, setDistination] = useState("");
@@ -55,12 +58,31 @@ const NavMenu = () => {
                         Traveller.com
                     </Link>
                     <div className="flex gap-6">
-                        <Link
-                            className="bg-white px-4 py-1 text-secondary font-medium"
-                            to="/login"
-                        >
-                            Sign In
-                        </Link>
+                        {!user?.uid ? (
+                            <Link
+                                className="bg-white px-4 py-1 text-secondary font-medium"
+                                to="/login"
+                            >
+                                Sign In
+                            </Link>
+                        ) : (
+                            <div className="flex gap-4 items-center">
+                                <img
+                                    className="h-16 w-16 rounded-full"
+                                    src={user?.photoURL}
+                                    alt=""
+                                />
+                                <p className="text-white font-bold">
+                                    {user?.displayName}
+                                </p>
+                                <button
+                                    onClick={logOut}
+                                    className="bg-white px-3 py-1 rounded-md text-lg"
+                                >
+                                    Log Out
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="pt-7">
