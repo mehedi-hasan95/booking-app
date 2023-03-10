@@ -11,6 +11,8 @@ import {
     updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.init";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Create a client tanstack Query
 const queryClient = new QueryClient();
@@ -80,6 +82,7 @@ const AuthProvider = ({ children }) => {
         <QueryClientProvider client={queryClient}>
             <AuthContext.Provider value={authInfo}>
                 {children}
+                <ToastContainer position="top-right" autoClose={1000} />
             </AuthContext.Provider>
         </QueryClientProvider>
     );

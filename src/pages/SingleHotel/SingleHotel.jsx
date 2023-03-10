@@ -4,8 +4,10 @@ import { GiEarthAsiaOceania } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useLoaderData } from "react-router-dom";
 import { SearchContext } from "../../AuthProvider/SearchContext";
+import ReserveModal from "../../components/ReserveModal/ReserveModal";
 
 const SingleHotel = () => {
+    const [showModal, setShowModal] = useState(false);
     const {
         address,
         city,
@@ -107,7 +109,10 @@ const SingleHotel = () => {
                         </p>
                     </div>
                     <div>
-                        <button className="bg-secondary hover:bg-primary transition duration-300 text-white px-4 py-2 rounded-md font-semibold">
+                        <button
+                            onClick={() => setShowModal(true)}
+                            className="bg-secondary hover:bg-primary transition duration-300 text-white px-4 py-2 rounded-md font-semibold"
+                        >
                             Reserve
                         </button>
                     </div>
@@ -162,6 +167,13 @@ const SingleHotel = () => {
                     </div>
                 </div>
             </div>
+            {showModal ? (
+                <ReserveModal
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    title={title}
+                />
+            ) : null}
         </div>
     );
 };

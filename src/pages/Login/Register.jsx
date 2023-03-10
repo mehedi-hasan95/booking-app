@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoogleAuthProvider } from "firebase/auth";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [file, setFile] = useState(null);
@@ -89,7 +90,7 @@ const Register = () => {
                     })
                         .then((response) => response.json())
                         .then((data) => {
-                            console.log("Success:", data);
+                            toast.success("Sucessfully create user");
                         })
                         .catch((error) => {
                             console.error("Error:", error);
