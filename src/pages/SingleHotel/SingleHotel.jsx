@@ -2,12 +2,22 @@ import React, { useContext, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaMapMarkerAlt } from "react-icons/fa";
 import { GiEarthAsiaOceania } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../AuthProvider/SearchContext";
 import ReserveModal from "../../components/ReserveModal/ReserveModal";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SingleHotel = () => {
+    const { user } = useContext(AuthContext);
     const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+    const handleClick = () => {
+        if (user?.uid) {
+            setShowModal(true);
+        } else {
+            navigate("/login");
+        }
+    };
     const {
         address,
         city,
@@ -19,11 +29,11 @@ const SingleHotel = () => {
         rating,
         title,
         type,
+        _id,
     } = useLoaderData();
 
     // Context API for Dates
     const { pickDate, rentRoom } = useContext(SearchContext);
-    console.log(rentRoom.room);
 
     const miliSeconds = 1000 * 60 * 60 * 24;
     function dayStay(date1, date2) {
@@ -110,7 +120,7 @@ const SingleHotel = () => {
                     </div>
                     <div>
                         <button
-                            onClick={() => setShowModal(true)}
+                            onClick={handleClick}
                             className="bg-secondary hover:bg-primary transition duration-300 text-white px-4 py-2 rounded-md font-semibold"
                         >
                             Reserve
@@ -161,7 +171,10 @@ const SingleHotel = () => {
                             </span>{" "}
                             <span>({stayDays > 0 ? stayDays : 1} days)</span>
                         </span>
-                        <button className="bg-secondary hover:bg-primary transition duration-300 block w-full py-2 rounded-md text-lg font-bold text-white mt-3">
+                        <button
+                            onClick={handleClick}
+                            className="bg-secondary hover:bg-primary transition duration-300 block w-full py-2 rounded-md text-lg font-bold text-white mt-3"
+                        >
                             Reserve
                         </button>
                     </div>
@@ -172,6 +185,7 @@ const SingleHotel = () => {
                     showModal={showModal}
                     setShowModal={setShowModal}
                     title={title}
+                    id={_id}
                 />
             ) : null}
         </div>

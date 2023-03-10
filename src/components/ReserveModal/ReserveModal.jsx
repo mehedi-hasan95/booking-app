@@ -1,6 +1,18 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
 
-const ReserveModal = ({ showModal, setShowModal, title }) => {
+const ReserveModal = ({ setShowModal, title, id }) => {
+    const { data: hotelRoom, isLoading } = useQuery({
+        queryKey: ["hotelRoom"],
+        queryFn: async () => {
+            const res = await fetch(
+                `http://localhost:5000/api/hotel/room/${id}`
+            );
+            const data = await res.json();
+            return data;
+        },
+    });
+
     return (
         <div>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -21,15 +33,49 @@ const ReserveModal = ({ showModal, setShowModal, title }) => {
                         </div>
                         {/*body*/}
                         <div className="relative p-6 flex-auto">
-                            <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                                I always felt like I could do anything. That’s
-                                the main thing people are controlled by!
-                                Thoughts- their perception of themselves!
-                                They're slowed down by their perception of
-                                themselves. If you're taught you can’t do
-                                anything, you won’t do anything. I was taught I
-                                could do everything.
-                            </p>
+                            {hotelRoom?.length > 0 ? (
+                                <>
+                                    {hotelRoom.map((hotel) => (
+                                        <div key={hotel._id}>
+                                            <div>
+                                                <h3 className=" capitalize">
+                                                    {hotel.title}
+                                                </h3>
+                                                <h4>{hotel.desc}</h4>
+                                                <h4>
+                                                    Max people can stay:{" "}
+                                                    <b>{hotel.maxPeople}</b>
+                                                </h4>
+                                                <h4>
+                                                    Price: BDT {hotel.price}
+                                                </h4>
+                                            </div>
+                                            <div className="flex gap-3">
+                                                {hotel.roomNumber.map(
+                                                    (room) => (
+                                                        <div
+                                                            key={room._id}
+                                                            className="flex flex-col"
+                                                        >
+                                                            <label>
+                                                                {room.number}
+                                                            </label>
+                                                            <input
+                                                                type="checkbox"
+                                                                name="check"
+                                                                id=""
+                                                                value={room._id}
+                                                            />
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
+                            ) : (
+                                "No Room available"
+                            )}
                         </div>
                         {/*footer*/}
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
